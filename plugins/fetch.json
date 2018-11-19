@@ -24,5 +24,69 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-statusbar": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/apache/cordova-plugin-statusbar.git"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-customconfigparameters": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-customconfigparameters@~3.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-network-information": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-network-information@~2.0.1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-app-version": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-app-version@~0.1.9"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-screen-orientation": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-screen-orientation@~3.0.1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "es6-promise-plugin": {
+    "source": {
+      "type": "registry",
+      "id": "es6-promise-plugin@^4.1.0"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "com.bunkerpalace.cordova.YoutubeVideoPlayer": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/JonSmart/CordovaYoutubeVideoPlayer"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "com.santinowu.cordova.imagedownloader": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

@@ -1,263 +1,28 @@
- var admobid = {};
+/*var admobid = {};
   if( /(android)/i.test(navigator.userAgent) ) {
     admobid = { // for Android
-      banner: 'ca-app-pub-3940256099942544/6300978111',
-      interstitial: 'ca-app-pub-3940256099942544/1033173712',
-      rewardvideo: 'ca-app-pub-3940256099942544/5224354917',
+      banner: 'ca-app-pub-2607313420010336/7643001475',
+      interstitial: 'ca-app-pub-2607313420010336/2217508304',
     };
   } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
     admobid = { // for iOS
-      banner: 'ca-app-pub-3940256099942544/4480807092',
-      interstitial: 'ca-app-pub-3940256099942544/4411468910',
-      rewardvideo: 'ca-app-pub-3940256099942544/1712485313',
-    };
+      banner: 'ca-app-pub-2607313420010336/7643001475',
+      interstitial: 'ca-app-pub-2607313420010336/2217508304',
+        };
   } else {
     admobid = { // for Windows Phone
-      banner: 'ca-app-pub-6869992474017983/8878394753',
-      interstitial: 'ca-app-pub-6869992474017983/1355127956',
-      rewardvideo: '',
+      banner: 'ca-app-pub-2607313420010336/7643001475',
+      interstitial: 'ca-app-pub-2607313420010336/2217508304',
     };
-  }
-
-  function initAd(){
-  AdMob.getAdSettings(function(info){
-
-    console.log('adId: ' + info.adId + '\n' + 'adTrackingEnabled: ' + info.adTrackingEnabled);
-  }, function(){
-    console.log('failed to get user ad settings');
-  });
-
-  AdMob.setOptions({
-      // adSize: 'SMART_BANNER',
-      position: AdMob.AD_POSITION.BOTTOM_CENTER,
-      isTesting: false, // set to true, to receiving test ad for testing purpose
-      bgColor: 'black', // color name, or '#RRGGBB'
-       autoShow: false // auto show interstitial ad when loaded, set to false if prepare/show
-      // offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
-    });
-
-    // new events, with variable to differentiate: adNetwork, adType, adEvent
-    $(document).on('onAdFailLoad', function(e){
-      // when jquery used, it will hijack the event, so we have to get data from original event
-    // adType: 'banner', 'interstitial', etc.
-
-     var interAd =   localStorage.getItem("interAdshown");
-  if (interAd == '1') {
-   // alert('induestrial true');
-    localStorage.setItem("interAdshown",'0');
-    //video modal
-    var openVideoModelId =  localStorage.getItem("openVideoModelId");
-//run video player
-    var runVideoId = localStorage.getItem("runVideoId");
-    var runVideoplatform = localStorage.getItem("runVideoplatform");
-
-    //wallpaper
-
-     var category_id_wallpaper = localStorage.getItem("category_id_wallpaper");
-     
-      if(openVideoModelId != '0' )
-       {
-
-        openModel(openVideoModelId);
-         localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-
-       }
-       
-     if (runVideoId != '0' &&  runVideoplatform != '0') 
-       {
-
-        var videoId = runVideoId;
-         var platform  = runVideoplatform;
-        if(platform == 'youtube')
-      {
-        YoutubeVideoPlayer.openVideo(videoId, function(result) { console.log('YoutubeVideoPlayer result = ' + result); });
-          
-      }
-      if (platform == 'dailymotion') {
-        $('#myModal').css('display', 'none');
-         $('#videoModal').css('display', 'block');
-          initAdmobWithoutBanner();
-        window.screen.orientation.lock('landscape');
-        videourl = 'https://www.dailymotion.com/embed/video/'+videoId+'?queue-enable=false';
-        $('#videoplayer').attr('src' , videourl);
-      }
-
-            localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-       }
-       if(category_id_wallpaper != 0)
-       {
-         openModelWallpaper(category_id_wallpaper);
-         localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
+  }*/  
+/*function onDeviceReady()
+{
+  initAd(); 
+      initBannerAndinterstitial();
+      showBannerAtPosition();
+  }*/
 
 
-       }
-     prepareInterstitialAd();
-
-  }
-    
-    });
-    $(document).on('onAdPresent', function(e){
-    });
-    $(document).on('onAdLeaveApp', function(e){
-   });
-    
-    $(document).on('onAdDismiss', function(e){
-      /*if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
-      var data = e.data || e;
-      if(data.adType === 'interstitial') {
-     // alert('onAdDismiss');
-      var openVideoModelId =  localStorage.getItem("openVideoModelId");
-      if(openVideoModelId != '' || openVideoModelId != null)
-       {
-        openModel(openVideoModelId);
-        localStorage.setItem("openVideoModelId",'');
-       }
-      }
-       else if(data.adType === 'rewardvideo') {
-        $('#h3_video').text('Rewarded Video');
-        $('#btn_showvideo').prop('disabled', true);
-      }*/
-
- var interAd =   localStorage.getItem("interAdshown");
-  if (interAd == '1') {
-   // alert('induestrial true');
-    localStorage.setItem("interAdshown",'0');
-    //video modal
-    var openVideoModelId =  localStorage.getItem("openVideoModelId");
-//run video player
-    var runVideoId = localStorage.getItem("runVideoId");
-    var runVideoplatform = localStorage.getItem("runVideoplatform");
-
-    //wallpaper
-
-     var category_id_wallpaper = localStorage.getItem("category_id_wallpaper");
-     
-      if(openVideoModelId != '0' )
-       {
-
-        openModel(openVideoModelId);
-         localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-
-       }
-       
-     if (runVideoId != '0' &&  runVideoplatform != '0') 
-       {
-
-        var videoId = runVideoId;
-         var platform  = runVideoplatform;
-        if(platform == 'youtube')
-      {
-        YoutubeVideoPlayer.openVideo(videoId, function(result) { console.log('YoutubeVideoPlayer result = ' + result); });
-          
-      }
-      if (platform == 'dailymotion') {
-        $('#myModal').css('display', 'none');
-         $('#videoModal').css('display', 'block');
-          initAdmobWithoutBanner();
-        window.screen.orientation.lock('landscape');
-        videourl = 'https://www.dailymotion.com/embed/video/'+videoId+'?queue-enable=false';
-        $('#videoplayer').attr('src' , videourl);
-      }
-
-            localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-       }
-       if(category_id_wallpaper != 0)
-       {
-         openModelWallpaper(category_id_wallpaper);
-         localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-
-
-       }
-
-prepareInterstitialAd(); 
-  }
-  });
-$(document).on('resume', function(){
-  //alert('onresume');
-
-  var interAd =   localStorage.getItem("interAdshown");
-  if (interAd == '1') {
-   // alert('induestrial true');
-    localStorage.setItem("interAdshown",'0');
-    //video modal
-    var openVideoModelId =  localStorage.getItem("openVideoModelId");
-//run video player
-    var runVideoId = localStorage.getItem("runVideoId");
-    var runVideoplatform = localStorage.getItem("runVideoplatform");
-
-    //wallpaper
-
-     var category_id_wallpaper = localStorage.getItem("category_id_wallpaper");
-     
-      if(openVideoModelId != '0' )
-       {
-
-        openModel(openVideoModelId);
-         localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-
-       }
-       
-     if (runVideoId != '0' &&  runVideoplatform != '0') 
-       {
-
-        var videoId = runVideoId;
-         var platform  = runVideoplatform;
-        if(platform == 'youtube')
-      {
-        YoutubeVideoPlayer.openVideo(videoId, function(result) { console.log('YoutubeVideoPlayer result = ' + result); });
-          
-      }
-      if (platform == 'dailymotion') {
-        $('#myModal').css('display', 'none');
-         $('#videoModal').css('display', 'block');
-          initAdmobWithoutBanner();
-        window.screen.orientation.lock('landscape');
-        videourl = 'https://www.dailymotion.com/embed/video/'+videoId+'?queue-enable=false';
-        $('#videoplayer').attr('src' , videourl);
-      }
-
-            localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-       }
-       if(category_id_wallpaper != 0)
-       {
-         openModelWallpaper(category_id_wallpaper);
-         localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-
-
-       }
-
-prepareInterstitialAd(); 
-  }
- 
-    });
-  }
   /*function allVideoPlayer(videoid , platform)
 {
 
@@ -273,7 +38,8 @@ prepareInterstitialAd();
 
   function initBannerAndinterstitial()
   {
-    AdMob.createBanner({
+    alert('run');
+/*    AdMob.createBanner({
       adId: admobid.banner,
       position: AdMob.AD_POSITION.BOTTOM_CENTER,
     isTesting: false, // TODO: remove this line when release
@@ -285,34 +51,38 @@ prepareInterstitialAd();
       adId: admobid.interstitial,
     isTesting: false, // TODO: remove this line when release
     autoShow: false
-  });  
+  });  */
   }
   function showBannerAtPosition(){
-    if(AdMob) AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
-    prepareInterstitialAd();
+alert('run');
+/*    if(AdMob) AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
+    prepareInterstitialAd();*/
   }
   
   function showIndustrialAd()
   {
-    localStorage.setItem("interAdshown",'1');
+    alert('run');
+    /*localStorage.setItem("interAdshown",'1');
     AdMob.showInterstitial();
-    prepareInterstitialAd();
+    prepareInterstitialAd();*/
   }
 
   function  prepareInterstitialAd()
   {
-    AdMob.prepareInterstitial({
+    alert('run');
+    /*AdMob.prepareInterstitial({
       adId: admobid.interstitial,
       autoShow: false,
     isTesting: false // TODO: remove this line when release
-  });
+  });*/
   }
   function initAdmobWithoutBanner() {
-    AdMob.hideBanner();
+console.log('run');
+//    AdMob.hideBanner();
   }
 
-  if(( /(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent) )) {
+  /*if(( /(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent) )) {
     document.addEventListener('deviceready', onDeviceReady, false);
   } else {
     onDeviceReady();
-  }
+  }*/

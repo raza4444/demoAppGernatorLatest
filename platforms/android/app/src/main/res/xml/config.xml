@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.example.hello" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.timesvideo.gaanesuneansune" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="AdMob">
         <param name="android-package" value="com.rjfun.cordova.admob.AdMobPlugin" />
         <param name="onload" value="true" />
@@ -8,6 +8,31 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="StatusBar">
+        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="CustomConfigParameters">
+        <param name="android-package" value="org.apache.cordova.customconfigparameters.CustomConfigParameters" />
+    </feature>
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+    <feature name="AppVersion">
+        <param name="android-package" value="uk.co.whiteoctober.cordova.AppVersion" />
+    </feature>
+    <feature name="CDVOrientation">
+        <param name="android-package" value="cordova.plugins.screenorientation.CDVOrientation" />
+    </feature>
+    <feature name="ImageDownloader">
+        <param name="android-package" value="com.santinowu.cordova.imagedownloader.ImageDownloader" />
+        <param name="onload" value="true" />
+    </feature>
+    <widget>
+        <feature name="YoutubeVideoPlayer">
+            <param name="android-package" value="com.bunkerpalace.cordova.YoutubeVideoPlayer" />
+        </feature>
+    </widget>
     <name>HelloWorld</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -23,6 +48,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <preference name="onesignal" value="" />
     <allow-intent href="market:*" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="android-minSdkVersion" value="15" />
@@ -31,4 +57,6 @@
     <preference name="android-build-tool" value="gradle" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="phonegap-version" value="cli-7.1.0" />
+    <preference name="admobBannerId" value="ca-app-pub-2607313420010336/7643001475" />
+    <preference name="admobInterstitialId" value="ca-app-pub-2607313420010336/2217508304" />
 </widget>

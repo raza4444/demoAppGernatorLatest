@@ -13,6 +13,27 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.example.hello"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
+    },
+    "cordova-plugin-customconfigparameters": {
+      "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
+    },
+    "cordova-plugin-app-version": {
+      "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
+    },
+    "cordova-plugin-screen-orientation": {
+      "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
+    },
+    "com.bunkerpalace.cordova.YoutubeVideoPlayer": {
+      "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
+    },
+    "com.santinowu.cordova.imagedownloader": {
+      "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
     }
   },
   "dependent_plugins": {
@@ -22,6 +43,9 @@
     },
     "cordova-plugin-extension": {
       "PACKAGE_NAME": "com.example.hello"
+    },
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
     }
   }
 }
