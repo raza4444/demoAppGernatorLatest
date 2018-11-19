@@ -1,5 +1,5 @@
 {
-  "_from": "git+https://github.com/apache/cordova-plugin-statusbar.git",
+  "_from": "https://github.com/apache/cordova-plugin-statusbar.git",
   "_id": "cordova-plugin-statusbar@2.4.3-dev",
   "_inBundle": false,
   "_integrity": "",
@@ -9,7 +9,7 @@
     "type": "git",
     "raw": "https://github.com/apache/cordova-plugin-statusbar.git",
     "rawSpec": "https://github.com/apache/cordova-plugin-statusbar.git",
-    "saveSpec": "git+https://github.com/apache/cordova-plugin-statusbar.git",
+    "saveSpec": "https://github.com/apache/cordova-plugin-statusbar.git",
     "fetchSpec": "https://github.com/apache/cordova-plugin-statusbar.git",
     "gitCommittish": null
   },
@@ -17,7 +17,7 @@
     "#USER",
     "/"
   ],
-  "_resolved": "git+https://github.com/apache/cordova-plugin-statusbar.git#adcee9f66f01f95eaa286f956105bbccf62b14df",
+  "_resolved": "https://github.com/apache/cordova-plugin-statusbar.git#adcee9f66f01f95eaa286f956105bbccf62b14df",
   "_spec": "https://github.com/apache/cordova-plugin-statusbar.git",
   "_where": "C:\\cordova\\hello",
   "author": {
@@ -67,7 +67,7 @@
   "name": "cordova-plugin-statusbar",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/apache/cordova-plugin-statusbar.git"
+    "url": "https://github.com/apache/cordova-plugin-statusbar.git"
   },
   "scripts": {
     "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint tests",

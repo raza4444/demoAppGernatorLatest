@@ -52,7 +52,7 @@
   "name": "cordova-plugin-extension",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/floatinghotpot/cordova-extension.git"
+    "url": "https://github.com/floatinghotpot/cordova-extension.git"
   },
   "version": "1.5.4"
 }

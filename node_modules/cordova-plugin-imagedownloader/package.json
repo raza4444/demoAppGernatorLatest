@@ -1,5 +1,5 @@
 {
-  "_from": "git+https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git",
+  "_from": "https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git",
   "_id": "cordova-plugin-imagedownloader@1.0.3",
   "_inBundle": false,
   "_integrity": "",
@@ -9,7 +9,7 @@
     "type": "git",
     "raw": "https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git",
     "rawSpec": "https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git",
-    "saveSpec": "git+https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git",
+    "saveSpec": "https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git",
     "fetchSpec": "https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git",
     "gitCommittish": null
   },
@@ -17,7 +17,7 @@
     "#USER",
     "/"
   ],
-  "_resolved": "git+https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git#efd96872fc5fa12d73e651b9b8c0d4996f708129",
+  "_resolved": "https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git#efd96872fc5fa12d73e651b9b8c0d4996f708129",
   "_spec": "https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git",
   "_where": "C:\\cordova\\hello",
   "author": {
@@ -41,7 +41,7 @@
   "name": "cordova-plugin-imagedownloader",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git"
+    "url": "https://github.com/Santino-Wu/cordova-plugin-imagedownloader.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
