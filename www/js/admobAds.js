@@ -30,7 +30,6 @@
   AdMob.setOptions({
       // adSize: 'SMART_BANNER',
       position: AdMob.AD_POSITION.BOTTOM_CENTER,
-      isTesting: false, // set to true, to receiving test ad for testing purpose
       bgColor: 'black', // color name, or '#RRGGBB'
        autoShow: false // auto show interstitial ad when loaded, set to false if prepare/show
       // offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
@@ -276,14 +275,12 @@ prepareInterstitialAd();
     AdMob.createBanner({
       adId: admobid.banner,
       position: AdMob.AD_POSITION.BOTTOM_CENTER,
-    isTesting: false, // TODO: remove this line when release
     overlap: false,
     offsetTopBar: false,
     bgColor: ' '
   });  
     AdMob.prepareInterstitial({
       adId: admobid.interstitial,
-    isTesting: false, // TODO: remove this line when release
     autoShow: false
   });  
   }
@@ -304,7 +301,7 @@ prepareInterstitialAd();
     AdMob.prepareInterstitial({
       adId: admobid.interstitial,
       autoShow: false,
-    isTesting: false // TODO: remove this line when release
+   
   });
   }
   function initAdmobWithoutBanner() {
