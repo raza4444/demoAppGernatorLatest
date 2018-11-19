@@ -1,21 +1,21 @@
  var admobid = {};
   if( /(android)/i.test(navigator.userAgent) ) {
     admobid = { // for Android
-      banner: 'ca-app-pub-3940256099942544/6300978111',
-      interstitial: 'ca-app-pub-3940256099942544/1033173712',
-      rewardvideo: 'ca-app-pub-3940256099942544/5224354917',
+      banner: 'ca-app-pub-2607313420010336/7643001475',
+      interstitial: 'ca-app-pub-2607313420010336/2217508304',
+      
     };
   } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
     admobid = { // for iOS
-      banner: 'ca-app-pub-3940256099942544/4480807092',
-      interstitial: 'ca-app-pub-3940256099942544/4411468910',
-      rewardvideo: 'ca-app-pub-3940256099942544/1712485313',
+      banner: 'ca-app-pub-2607313420010336/7643001475',
+      interstitial: 'ca-app-pub-2607313420010336/2217508304',
+      
     };
   } else {
     admobid = { // for Windows Phone
-      banner: 'ca-app-pub-6869992474017983/8878394753',
-      interstitial: 'ca-app-pub-6869992474017983/1355127956',
-      rewardvideo: '',
+      banner: 'ca-app-pub-2607313420010336/7643001475',
+      interstitial: 'ca-app-pub-2607313420010336/2217508304',
+     
     };
   }
 
