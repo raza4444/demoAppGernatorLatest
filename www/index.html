@@ -1,285 +1,410 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="msapplication-tap-highlight" content="no" />
-<meta name="format-detection" content="telephone=no" />
+    <meta charset="UTF-8">
 
-<!-- to avoid the warning of content security policy -->
-<meta http-equiv="Content-Security-Policy" content="default-src * gap://ready file:; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <title class="getname"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; media-src *; img-src * filesystem: data:">
 
-<title>Hello World</title>
-<script>
-  // fix wp8 view port issue, see:
-  // https://github.com/floatinghotpot/cordova-admob-pro/issues/109
-  // https://coderwall.com/p/zk_2la/responsive-design-in-ie-10-on-windows-phone-8
-  // http://stackoverflow.com/questions/24007577/windows-phone-8-viewport-issue
-(function() {
-  if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
-    var msViewportStyle = document.createElement("style");
-    msViewportStyle.appendChild(
-      document.createTextNode("@-ms-viewport{width:auto!important}")
-    );
-    document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
-  }
-})();
-</script>
+    <link rel="shortcut icon" class="icon_href" href="">
 
-<!-- optional -->
-<script type="text/javascript" src="js/jquery.js"></script>
-
-<!-- must-have, which will be created by cordova prepare/build -->
-<script type="text/javascript" src="cordova.js"></script>
-
-<style type="text/css">
-body {
-width: 100%;
-height: 100%;
-margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: gray;
-  color: white;
-}
-
-div#fullpage {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0px solid red;
-  text-align: center;
-  vertical-align: middle;
-}
-
-select, textarea {
-  width: calc(100% - 20px);
-  padding: 0px;
-  margin: 5px;
-}
-
-button {
-  width: calc(50% - 40px);
-  padding: 10px;
-  margin: 5px;
-}
-
-</style>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/slid.css">
+    -->
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/slick.css">
+    <link rel="stylesheet" href="css/slick-theme.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/owl.theme.css">
+    <link rel="stylesheet" href="css/owl.transitions.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style1.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/jquery.event.move.js"></script>
+    <script src="js/jquery.event.swipe.js"></script>
+    <script src="js/appsetting.js"></script>
+    
+    <script type="text/javascript" src="js/youtubeAndDailymotionSearch.js"></script>
+    <script type="text/javascript" src="js/videoPost.js"></script>
+    <script type="text/javascript" src="js/getallPost.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script src="js/wallpaperPost.js"></script>
+    <script type="text/javascript" src="js/promotionLink.js"></script>
+    <script type="text/javascript" src="js/admobAds.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/video.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
 </head>
 
-<body>
-<script>
-  // place our admob ad unit id here
-  var admobid = {};
-  if( /(android)/i.test(navigator.userAgent) ) {
-    admobid = { // for Android
-      banner: 'ca-app-pub-2607313420010336/7643001475',
-      interstitial: 'ca-app-pub-2607313420010336/2217508304',
-    };
-  } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
-    admobid = { // for iOS
-      banner: 'ca-app-pub-2607313420010336/7643001475',
-      interstitial: 'ca-app-pub-2607313420010336/2217508304',
-        };
-  } else {
-    admobid = { // for Windows Phone
-      banner: 'ca-app-pub-2607313420010336/7643001475',
-      interstitial: 'ca-app-pub-2607313420010336/2217508304',
-    };
-  }
 
-  function createSelectedBanner(){
-    if(AdMob) AdMob.createBanner({
-      adId: admobid.banner,
-      overlap: $('#overlap').is(':checked'),
-      offsetTopBar: $('#offsetTopBar').is(':checked'),
-      adSize: $('#adSize').val(),
-      position: $('#adPosition').val(),
-    });
-  }
+<body onload="onLoad()" class="home"  >
+    <!--loader image starts -->
 
-  function showBannerAtPosition(){
-    if(AdMob) AdMob.showBanner( $('#adPosition').val() );
-  }
+    <div class="my_lazy_loader hide">
+      <div class="getname"></div>
+      <div class="col-xs-12 col-sm-12">
+        <div style="float: left;">
+            <img class="lazy_loader_img" src="img/loading.gif">
+        </div>
+        <div style="    padding: 12px;">
+            <span class="lazy_loader_text">Loading......</span>
+        </div>
+    </div>
+</div>
+<div class="loader"  style="background-color:#BF9C9E; background-image: url('img/splash.png') !important;" >
 
-  function onDeviceReady() {
-    if (! AdMob) { alert( 'admob plugin not ready' ); return; }
+</div>
+<!-- loader image ends-->
 
-    initAd();
+<div class="complete hide">
 
-    // display a banner at startup
-    createSelectedBanner();
-  }
+    <!-- nav bar starts -->
 
-  function initAd(){
-    AdMob.getAdSettings(function(info){
-      console.log('adId: ' + info.adId + '\n' + 'adTrackingEnabled: ' + info.adTrackingEnabled);
-    }, function(){
-      console.log('failed to get user ad settings');
-    });
+    <div style="padding-top: 3px;position: fixed;
+    width: 100%;" class="navbar backgroundClor">
+    <div>
 
-    AdMob.setOptions({
-      // adSize: 'SMART_BANNER',
-      position: AdMob.AD_POSITION.BOTTOM_CENTER,
-      isTesting: true, // set to true, to receiving test ad for testing purpose
-      bgColor: 'black', // color name, or '#RRGGBB'
-      // autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
-      // offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
-    });
+        <!--logo starts -->
 
-    // new events, with variable to differentiate: adNetwork, adType, adEvent
-    $(document).on('onAdFailLoad', function(e){
-      // when jquery used, it will hijack the event, so we have to get data from original event
-      if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
-      var data = e.detail || e.data || e;
+        <div class="site-title logo_div">
+            <img id="logo_src" src="" alt="Loading Image" height="40px"  >
 
-      alert('error: ' + data.error +
-          ', reason: ' + data.reason +
-          ', adNetwork:' + data.adNetwork +
-          ', adType:' + data.adType +
-          ', adEvent:' + data.adEvent); // adType: 'banner', 'interstitial', etc.
-    });
-    $(document).on('onAdLoaded', function(e){
-        if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
-        var data = e.data || e;
 
-        if(data.adType === 'interstitial') {
-            $('#h3_full').text('Interstitial Ready');
-            $('#btn_showfull').prop('disabled', false);
+        </div>
+        <div id="backSearhBar" class="fa fa-arrow-left hide" style="color: white;
+        margin-top: 4%;
+        margin-left: 2%;
+        margin-right: 2%;
+        font-size: 26px;
+        font-weight: 100;">
+    </div>
+    <div class="" style="float: right;
+    text-align: right;
+    max-height: 36px;
+    margin-right: 4%;
+    margin-top: 1%;">
+<!-- <div class="glass">
+<div class="glass-body"></div>
+<div class="glass-handle"></div>
+</div> -->
 
-        } else if(data.adType === 'rewardvideo') {
-            $('#h3_video').text('Rewarded Video Ready');
-            $('#btn_showvideo').prop('disabled', false);
-        }
-    });
-    $(document).on('onAdPresent', function(e){
-    });
-    $(document).on('onAdLeaveApp', function(e){
-    });
-    $(document).on('onAdDismiss', function(e){
-        if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
-        var data = e.data || e;
 
-        if(data.adType === 'interstitial') {
-            $('#h3_full').text('Interstitial');
-            $('#btn_showfull').prop('disabled', true);
+<a id="search_btn" ><i class="fa fa-2x fa-search"></i></a>
 
-        } else if(data.adType === 'rewardvideo') {
-            $('#h3_video').text('Rewarded Video');
-            $('#btn_showvideo').prop('disabled', true);
-        }
-    });
 
-    $('#btn_create').click(createSelectedBanner);
-    $('#btn_remove').click(function(){
-      AdMob.removeBanner();
-    });
 
-    $('#btn_show').click(showBannerAtPosition);
-    $('#btn_hide').click(function(){
-      AdMob.hideBanner();
-    });
+</div>
 
-    // test interstitial ad
-    $('#btn_prepare').click(function(){
-      AdMob.prepareInterstitial({
-        adId:admobid.interstitial,
-        autoShow: $('#autoshow').is(':checked'),
-      });
-    });
+<!--logo ends -->
 
-    $('#btn_showfull').click(function(){
-      AdMob.showInterstitial();
-    });
+<!--<input type="submit" id ="btn" onclick="check()"></input>-->
+<div class="panel-control-right hide">
+    <a href="contact.html"><i class="fa fa-envelope-o"></i></a>
+</div>
+</div>
+</div>
+<!-- slider -->
+<div id="mainSlider">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" >
 
-    // test rewarded video ad
-    $('#btn_preparevideo').click(function(){
-      AdMob.prepareRewardVideoAd({
-        adId:admobid.rewardvideo,
-        autoShow: $('#autoshowvideo').is(':checked'),
-      });
-    });
+        <!-- Indicators -->
+        <ol class="carousel-indicators hide">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
 
-    $('#btn_showvideo').click(function(){
-      AdMob.showRewardVideoAd();
-    });
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
 
-    // test case for #256, https://github.com/floatinghotpot/cordova-admob-pro/issues/256
-    $(document).on('backbutton', function(){
-      if(window.confirm('Are you sure to quit?')) navigator.app.exitApp();
-    });
+      </div>
 
-    // test case #283, https://github.com/floatinghotpot/cordova-admob-pro/issues/283
-    $(document).on('resume', function(){
-      AdMob.showInterstitial();
-    });
-  }
+      <!-- Left and right controls -->
+      <a class="left hide carousel-control" id="left_carousel_main_slider" href="#myCarousel" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+          <span class="sr-only">Previous</span>
+      </a>
+      <a class="right  hide carousel-control" id="right_carousel_main_slider" href="#myCarousel" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+          <span class="sr-only">Next</span>
+      </a>
+  </div>
+</div>
 
-  // test the webview resized properly
-  $(window).resize(function(){
-    $('#textinfo').html('web view: ' + $(window).width() + " x " + $(window).height());
-  });
+<!-- end slider -->
+<!--Title & description-->
+<div class="services descriptionDiv" >
+  <div class="container">           
+    <div class="col s6">
+      <div class="entry">
 
-  $(document).ready(function(){
-    $('#btn_showfull').prop('disabled', true);
-    $('#btn_showvideo').prop('disabled', true);
 
-    // on mobile device, we must wait the 'deviceready' event fired by cordova
-    if(/(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent)) {
-      document.addEventListener('deviceready', onDeviceReady, false);
-    } else {
-      onDeviceReady();
-    }
-  });
+        <p style="padding-top: 3px" id="descriptionId"></p>
+    </div>
+</div>
+</div>
+</div>
+<!--Title & description-->
 
-</script>
-  <div id="fullpage">
-    <p>Demo for AdMob Plugin</p>
-    <h3 id='h3_banner'>Banner</h3>
-    <input type='checkbox' id='overlap' />overlap
-    <input type='checkbox' id='offsetTopBar' />offsetTopBar
-    <br/>
-    <select id="adSize">
-      <option value='SMART_BANNER'>SMART_BANNER</option>
-      <option value='BANNER'>BANNER</option>
-      <option value='MEDIUM_RECTANGLE'>MEDIUM_RECTANGLE</option>
-      <option value='FULL_BANNER'>FULL_BANNER</option>
-      <option value='LEADERBOARD'>LEADERBOARD</option>
-      <option value='SKYSCRAPER'>SKYSCRAPER</option>
-    </select><br/>
-    <select id="adPosition">
-      <option value='1'>Top Left</option>
-      <option value='2'>Top Center</option>
-      <option value='3'>Top Right</option>
-      <option value='4'>Left</option>
-      <option value='5'>Center</option>
-      <option value='6'>Right</option>
-      <option value='7'>Bottom Left</option>
-      <option value='8' selected>Bottom Center</option>
-      <option value='9'>Bottom Right</option>
-    </select><br/>
-    <button id='btn_create'>createBanner</button>
-    <button id='btn_remove'>removeBanner</button>
-    <button id='btn_show'>showBanner</button>
-    <button id='btn_hide'>hideBanner</button>
-    <hr />
 
-    <h3 id='h3_full'>Interstitial</h3>
-    <input type='checkbox' id='autoshow' checked />auto show when ready<br />
-    <button id='btn_prepare'>prepareInterstitial</button>
-    <button id='btn_showfull'>showInterstitial</button>
+<!--Here is thumbnail slider -->
+    <!--     <div class="container">
+  
+  <div class='row'>
+    <div class='col-md-8'>
+      <div class="carousel slide media-carousel" id="media">
+        <div class="carousel-inner">
+          
+        </div>
 
-    <h3 id='h3_video'>Rewarded Video</h3>
-    <input type='checkbox' id='autoshowvideo' checked />auto show when ready<br />
-    <button id='btn_preparevideo'>prepareRewardVideoAd</button>
-    <button id='btn_showvideo'>showRewardVideoAd</button>
+        <a data-slide="prev" href="#media" id="left_gallery_image_slider" class="left carousel-control">‹</a>
+        <a data-slide="next" href="#media" id="right_gallery_image_slider" class="right carousel-control">›</a>
+      </div>                          
+    </div>
+  </div>
+</div>
 
-    <p><textarea rows=4 cols=30 id='textinfo'></textarea></p>
+-->
+<!--End of thumbnail slider -->
+
+<div class="latest-blog">
+    <div class="container">
+
+        <div class="row  ">
+            <div id="main_content">
+                <!--Show Video here-->
+            </div>
+        </div>
+               <!--  <div class="row"><div id="main_content_wallpaper">
+                        
+                        
+                    </div></div>
+
+                    <div class="row">
+                      <div id="main_content_promotionLink">
+                       
+                      </div></div> -->
+                  </div>
+              </div>
+              <!--End section Category Image slider -->
+
+          </div>
+          <!--model box to show single wallpaper images-->
+        <div id="wallpaperModal" class="modal">
+            <img src="img/dlicon.png" id="saveImg" onclick="downloadImg(this)">
+            <span class="closewallpaper">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+
+        </div>
+        
+        <!--model box to show single wallpaper images-->
+        <!--Model Box to show for search-->
+         <div id="searchModal" class="modal">
+            <div class="modal-content">
+                <div class="w3-bar" style="margin-top:-3px; margin-left: -3px; position:fixed; width: 102%;height:51px;">
+                    <a href="#" class="closesearch">
+                        <div class="fa fa-arrow-left left_arrow_search" >
+                        </div>
+                       <!--  <img class="model_logo_img" src="" alt="" style="    margin-left:1%;margin-top: -1%;height: 46px;">
+                        <h4 class ="post_title" style="margin-top: -9%;color: white;
+                        text-align:right; margin-right: 4%; text-shadow: white 2px 2px 10px;
+                        text-transform: uppercase;""></h4> -->
+                    </a>
+                    <input type="text"  class="searchbar" placeholder="Search Any Video">
+                </div>
+                
+          <!--show video list-->
+          <br>
+          <br>
+          <br>
+          <div class="search_result_h3"></div>
+          <div id="search_video_list">
+
+          </div>
+          <!--end video list-->
+      </div>
 
   </div>
+        <!--Model Box to show for search-->
+        <!-- model box to show data -->
+        <div id="videoModal" class="modal">
+            <div class="modal-content">
+                <div class="w3-bar" style="margin-left: -3px;margin-top:-2px; width: 100%; height:51px;">
+                    <a href="#" id="closeVideoModel">
+                        <div class="fa fa-chevron-left" style="color: white; margin-top: 4%; margin-left: 2%; margin-right: 2%; font-size: 19px;" >
+                        </div>
+                        <img class="model_logo_img" src="" alt="" style="    margin-left:1%;margin-top: -1%;height: 46px;">
+                        <h4 class="post_title" style="margin-top: -9%;text-align: right;margin-right: 4%; text-shadow: white 2px 2px 10px;
+                        text-transform: uppercase;"></h4>
+                    </a>
+                </div>
+                <div class="videoContainer" > 
+
+                    <iframe id='videoplayer' width="100%" height="315" src="" frameborder="0" allow="autoplay; encrypted-media" allowFullScreen="allowFullScreen"></iframe>
+                    
+                </div>
+                <!--show video list-->
+
+                <!--end video list-->
+            </div>
+
+        </div>
+        <!-- model box to show data -->
+
+
+        <!-- model box to show only embeded Videos -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="w3-bar" style="margin-top:-3px; margin-left: -3px; position:fixed; width: 102%;height:51px;">
+                    <a href="#" id="closeModel">
+                        <div class="fa fa-chevron-left" style="color: white; margin-top: 4%; margin-left: 2%; margin-right: 0%; font-size: 19px;" >
+                        </div>
+                        <img class="model_logo_img" src="" alt="" style="    margin-left:1%;margin-top: -1%;height: 46px;">
+                        <h4 class ="post_title" style="margin-top: -9%;color: white;
+                        text-align:right; margin-right: 4%; text-shadow: white 2px 2px 10px;
+                        text-transform: uppercase;""></h4>
+                    </a>
+                </div>
+                <div id="img_link" style="display: block;"> 
+                    <div class="latest-blog">
+                     <div class="container">
+                        <div class="row">
+                          <br>
+                          <br>
+                          <br>
+                          <div id="wallpaper_gallery">
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!--show video list-->
+          <br>
+          <br>
+          <br>
+          <div class="search_result_h3"></div>
+          <div id="video_list">
+
+          </div>
+          <!--end video list-->
+      </div>
+
+  </div>
+
+  <!--backbutton show model-->
+  <div class="model-overlay">
+    <!-- model box to show data -->
+    <div id="backbutton" class="modal">
+        <div >
+
+            <div class="main_bar" style="width: 101%;
+            margin-left: -3px;margin-top: -2px; height:51px;">
+            <h3 class="exit_app">Exit App</h3>
+        </div>
+        <div class="featured_apps">
+          <div class="container">
+            <div id=main_featured_app>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+      <table>
+        <tr>
+            <td class="tableDataBtn"><a id="exit_app"  style="">Exit</a></td>
+            <td class="tableDataBtn"><a id="cancel_exit_app_model" style="">Cancel</a></td>
+            <tr>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+<!-- model box to show data -->
+
+</div>
+<!--backbutton end show model-->
+
+<!-- model box to show only embeded Videos  -->
+<script type="text/javascript" src="js/backButton.js"></script>
+<script type="text/javascript" src="js/sliderSetting.js"></script>
+<script type="text/javascript" src="js/gallerySlider.js"></script>
+<script type="text/javascript" src="js/searchbar.js"></script>
+<script type="text/javascript" src="js/exitAppModel.js"></script>
+<script type="text/javascript" src="js/lazyLoaderImg.js"></script>
+
+
+
+<script type="text/javascript">
+
+  //slider category image 
+  $('#myCarousel').on('swipeleft', function(e) {
+   $("#right_carousel_main_slider").click();
+
+  //slides.eq(i + 1).addClass('active');
+})
+  $('#myCarousel').on('swiperight', function(e) {
+    $("#left_carousel_main_slider").click();
+
+});
+  $('#myCarousel').on('movestart', function(e) {
+          // If the movestart heads off in a upwards or downwards
+          // direction, prevent it so that the browser scrolls normally.
+          if ((e.distX > e.distY && e.distX < -e.distY) ||
+              (e.distX < e.distY && e.distX > -e.distY)) {
+            e.preventDefault();
+        return;
+    }
+
+})
+
+
+  
+
+
+  $(document).ready(function() {
+
+  });
+
+  $("#closeModel").click(function(){
+    //$('#myModal').css('display', 'none');
+    $("#myModal").animate({width:'toggle'},300);
+    $('.searchbar').val('');
+
+});
+  $('.closewallpaper').click(function(){
+      var modal = document.getElementById('wallpaperModal');
+      modal.style.display = "none";
+      $('#myModal').css('display', 'block');
+
+  })
+  $('.closesearch').click(function(){
+   /*   var modal = document.getElementById('searchModal');
+      modal.style.display = "none";*/
+      $("#searchModal").animate({width:'toggle'},300);
+     // $('#myModal').css('display', 'block');
+
+  })
+  
+
+</script>
 </body>
 </html>
