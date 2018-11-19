@@ -1,5 +1,4 @@
-var admobid = {};
-var admobid = {};
+ var admobid = {};
   if( /(android)/i.test(navigator.userAgent) ) {
     admobid = { // for Android
       banner: 'ca-app-pub-2607313420010336/7643001475',
@@ -9,315 +8,156 @@ var admobid = {};
     admobid = { // for iOS
       banner: 'ca-app-pub-2607313420010336/7643001475',
       interstitial: 'ca-app-pub-2607313420010336/2217508304',
-        };
+  
+    };
   } else {
     admobid = { // for Windows Phone
       banner: 'ca-app-pub-2607313420010336/7643001475',
       interstitial: 'ca-app-pub-2607313420010336/2217508304',
+      rewardvideo: '',
     };
-  }  
-function onDeviceReady()
-{
-  initAd(); 
-      initBannerAndinterstitial();
-      showBannerAtPosition();
   }
 
+  function createSelectedBanner(){
+    if(AdMob) AdMob.createBanner({
+      adId: admobid.banner,
+      overlap: $('#overlap').is(':checked'),
+      offsetTopBar: $('#offsetTopBar').is(':checked'),
+      adSize: $('#adSize').val(),
+      position: $('#adPosition').val(),
+    });
+  }
 
-function initAd(){
-  AdMob.getAdSettings(function(info){
+  function showBannerAtPosition(){
+    if(AdMob) AdMob.showBanner( $('#adPosition').val() );
+  }
 
-    console.log('adId: ' + info.adId + '\n' + 'adTrackingEnabled: ' + info.adTrackingEnabled);
-  }, function(){
-    console.log('failed to get user ad settings');
-  });
+  function onDeviceReady() {
+    if (! AdMob) { alert( 'admob plugin not ready' ); return; }
 
-  AdMob.setOptions({
+    initAd();
+
+    // display a banner at startup
+    createSelectedBanner();
+  }
+
+  function initAd(){
+    AdMob.getAdSettings(function(info){
+      console.log('adId: ' + info.adId + '\n' + 'adTrackingEnabled: ' + info.adTrackingEnabled);
+    }, function(){
+      console.log('failed to get user ad settings');
+    });
+
+    AdMob.setOptions({
       // adSize: 'SMART_BANNER',
       position: AdMob.AD_POSITION.BOTTOM_CENTER,
-      isTesting: false, // set to true, to receiving test ad for testing purpose
+      isTesting: true, // set to true, to receiving test ad for testing purpose
       bgColor: 'black', // color name, or '#RRGGBB'
-       autoShow: false // auto show interstitial ad when loaded, set to false if prepare/show
+      // autoShow: true // auto show interstitial ad when loaded, set to false if prepare/show
       // offsetTopBar: false, // avoid overlapped by status bar, for iOS7+
     });
 
     // new events, with variable to differentiate: adNetwork, adType, adEvent
     $(document).on('onAdFailLoad', function(e){
       // when jquery used, it will hijack the event, so we have to get data from original event
-    // adType: 'banner', 'interstitial', etc.
+      if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
+      var data = e.detail || e.data || e;
 
-     var interAd =   localStorage.getItem("interAdshown");
-  if (interAd == '1') {
-   // alert('induestrial true');
-    localStorage.setItem("interAdshown",'0');
-    //video modal
-    var openVideoModelId =  localStorage.getItem("openVideoModelId");
-//run video player
-    var runVideoId = localStorage.getItem("runVideoId");
-    var runVideoplatform = localStorage.getItem("runVideoplatform");
+      alert('error: ' + data.error +
+          ', reason: ' + data.reason +
+          ', adNetwork:' + data.adNetwork +
+          ', adType:' + data.adType +
+          ', adEvent:' + data.adEvent); // adType: 'banner', 'interstitial', etc.
+    });
+    $(document).on('onAdLoaded', function(e){
+        if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
+        var data = e.data || e;
 
-    //wallpaper
+        if(data.adType === 'interstitial') {
+            $('#h3_full').text('Interstitial Ready');
+            $('#btn_showfull').prop('disabled', false);
 
-     var category_id_wallpaper = localStorage.getItem("category_id_wallpaper");
-     
-      if(openVideoModelId != '0' )
-       {
-
-        openModel(openVideoModelId);
-         localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-
-       }
-       
-     if (runVideoId != '0' &&  runVideoplatform != '0') 
-       {
-
-        var videoId = runVideoId;
-         var platform  = runVideoplatform;
-        if(platform == 'youtube')
-      {
-        YoutubeVideoPlayer.openVideo(videoId, function(result) { console.log('YoutubeVideoPlayer result = ' + result); });
-          
-      }
-      if (platform == 'dailymotion') {
-        $('#myModal').css('display', 'none');
-         $('#videoModal').css('display', 'block');
-          initAdmobWithoutBanner();
-        window.screen.orientation.lock('landscape');
-        videourl = 'https://www.dailymotion.com/embed/video/'+videoId+'?queue-enable=false';
-        $('#videoplayer').attr('src' , videourl);
-      }
-
-            localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-       }
-       if(category_id_wallpaper != 0)
-       {
-         openModelWallpaper(category_id_wallpaper);
-         localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-
-
-       }
-     prepareInterstitialAd();
-
-  }
-    
+        } else if(data.adType === 'rewardvideo') {
+            $('#h3_video').text('Rewarded Video Ready');
+            $('#btn_showvideo').prop('disabled', false);
+        }
     });
     $(document).on('onAdPresent', function(e){
     });
     $(document).on('onAdLeaveApp', function(e){
-   });
-    
+    });
     $(document).on('onAdDismiss', function(e){
-      /*if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
-      var data = e.data || e;
-      if(data.adType === 'interstitial') {
-     // alert('onAdDismiss');
-      var openVideoModelId =  localStorage.getItem("openVideoModelId");
-      if(openVideoModelId != '' || openVideoModelId != null)
-       {
-        openModel(openVideoModelId);
-        localStorage.setItem("openVideoModelId",'');
-       }
-      }
-       else if(data.adType === 'rewardvideo') {
-        $('#h3_video').text('Rewarded Video');
-        $('#btn_showvideo').prop('disabled', true);
-      }*/
+        if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
+        var data = e.data || e;
 
- var interAd =   localStorage.getItem("interAdshown");
-  if (interAd == '1') {
-   // alert('induestrial true');
-    localStorage.setItem("interAdshown",'0');
-    //video modal
-    var openVideoModelId =  localStorage.getItem("openVideoModelId");
-//run video player
-    var runVideoId = localStorage.getItem("runVideoId");
-    var runVideoplatform = localStorage.getItem("runVideoplatform");
+        if(data.adType === 'interstitial') {
+            $('#h3_full').text('Interstitial');
+            $('#btn_showfull').prop('disabled', true);
 
-    //wallpaper
+        } else if(data.adType === 'rewardvideo') {
+            $('#h3_video').text('Rewarded Video');
+            $('#btn_showvideo').prop('disabled', true);
+        }
+    });
 
-     var category_id_wallpaper = localStorage.getItem("category_id_wallpaper");
-     
-      if(openVideoModelId != '0' )
-       {
+    $('#btn_create').click(createSelectedBanner);
+    $('#btn_remove').click(function(){
+      AdMob.removeBanner();
+    });
 
-        openModel(openVideoModelId);
-         localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
+    $('#btn_show').click(showBannerAtPosition);
+    $('#btn_hide').click(function(){
+      AdMob.hideBanner();
+    });
 
-       }
-       
-     if (runVideoId != '0' &&  runVideoplatform != '0') 
-       {
+    // test interstitial ad
+    $('#btn_prepare').click(function(){
+      AdMob.prepareInterstitial({
+        adId:admobid.interstitial,
+        autoShow: $('#autoshow').is(':checked'),
+      });
+    });
 
-        var videoId = runVideoId;
-         var platform  = runVideoplatform;
-        if(platform == 'youtube')
-      {
-        YoutubeVideoPlayer.openVideo(videoId, function(result) { console.log('YoutubeVideoPlayer result = ' + result); });
-          
-      }
-      if (platform == 'dailymotion') {
-        $('#myModal').css('display', 'none');
-         $('#videoModal').css('display', 'block');
-          initAdmobWithoutBanner();
-        window.screen.orientation.lock('landscape');
-        videourl = 'https://www.dailymotion.com/embed/video/'+videoId+'?queue-enable=false';
-        $('#videoplayer').attr('src' , videourl);
-      }
+    $('#btn_showfull').click(function(){
+      AdMob.showInterstitial();
+    });
 
-            localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-       }
-       if(category_id_wallpaper != 0)
-       {
-         openModelWallpaper(category_id_wallpaper);
-         localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
+    // test rewarded video ad
+    $('#btn_preparevideo').click(function(){
+      AdMob.prepareRewardVideoAd({
+        adId:admobid.rewardvideo,
+        autoShow: $('#autoshowvideo').is(':checked'),
+      });
+    });
 
+    $('#btn_showvideo').click(function(){
+      AdMob.showRewardVideoAd();
+    });
 
-       }
+    // test case for #256, https://github.com/floatinghotpot/cordova-admob-pro/issues/256
+    $(document).on('backbutton', function(){
+      if(window.confirm('Are you sure to quit?')) navigator.app.exitApp();
+    });
 
-prepareInterstitialAd(); 
-  }
-  });
-$(document).on('resume', function(){
-  //alert('onresume');
-
-  var interAd =   localStorage.getItem("interAdshown");
-  if (interAd == '1') {
-   // alert('induestrial true');
-    localStorage.setItem("interAdshown",'0');
-    //video modal
-    var openVideoModelId =  localStorage.getItem("openVideoModelId");
-//run video player
-    var runVideoId = localStorage.getItem("runVideoId");
-    var runVideoplatform = localStorage.getItem("runVideoplatform");
-
-    //wallpaper
-
-     var category_id_wallpaper = localStorage.getItem("category_id_wallpaper");
-     
-      if(openVideoModelId != '0' )
-       {
-
-        openModel(openVideoModelId);
-         localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-
-       }
-       
-     if (runVideoId != '0' &&  runVideoplatform != '0') 
-       {
-
-        var videoId = runVideoId;
-         var platform  = runVideoplatform;
-        if(platform == 'youtube')
-      {
-        YoutubeVideoPlayer.openVideo(videoId, function(result) { console.log('YoutubeVideoPlayer result = ' + result); });
-          
-      }
-      if (platform == 'dailymotion') {
-        $('#myModal').css('display', 'none');
-         $('#videoModal').css('display', 'block');
-          initAdmobWithoutBanner();
-        window.screen.orientation.lock('landscape');
-        videourl = 'https://www.dailymotion.com/embed/video/'+videoId+'?queue-enable=false';
-        $('#videoplayer').attr('src' , videourl);
-      }
-
-            localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-       }
-       if(category_id_wallpaper != 0)
-       {
-         openModelWallpaper(category_id_wallpaper);
-         localStorage.setItem('category_id_wallpaper' , '0');
-         localStorage.setItem("openVideoModelId",'0');
-             localStorage.setItem("runVideoId",'0');
-             localStorage.setItem("runVideoplatform",'0');
-
-
-       }
-
-prepareInterstitialAd(); 
-  }
- 
+    // test case #283, https://github.com/floatinghotpot/cordova-admob-pro/issues/283
+    $(document).on('resume', function(){
+      AdMob.showInterstitial();
     });
   }
-  /*function allVideoPlayer(videoid , platform)
-{
 
-  alert('enter video player');
-      //$("#videoModal").animate({width:'toggle'},300);
-      
-      if(platform == 'youtube')
-      {
-        YoutubeVideoPlayer.openVideo(videoid, function(result) { console.log('YoutubeVideoPlayer result = ' + result); });
-          
-      }
-    }*/
-
-  function initBannerAndinterstitial()
-  {
-    AdMob.createBanner({
-      adId: admobid.banner,
-      position: AdMob.AD_POSITION.BOTTOM_CENTER,
-    isTesting: false, // TODO: remove this line when release
-    overlap: false,
-    offsetTopBar: false,
-    bgColor: ' '
-  });  
-    AdMob.prepareInterstitial({
-      adId: admobid.interstitial,
-    isTesting: false, // TODO: remove this line when release
-    autoShow: false
-  });  
-  }
-  function showBannerAtPosition(){
-    if(AdMob) AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
-    prepareInterstitialAd();
-  }
-  
-  function showIndustrialAd()
-  {
-    localStorage.setItem("interAdshown",'1');
-    AdMob.showInterstitial();
-    prepareInterstitialAd();
-  }
-
-  function  prepareInterstitialAd()
-  {
-    AdMob.prepareInterstitial({
-      adId: admobid.interstitial,
-      autoShow: false,
-    isTesting: false // TODO: remove this line when release
+  // test the webview resized properly
+  $(window).resize(function(){
+    $('#textinfo').html('web view: ' + $(window).width() + " x " + $(window).height());
   });
-  }
-  function initAdmobWithoutBanner() {
-    AdMob.hideBanner();
-  }
 
-  if(( /(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent) )) {
-    document.addEventListener('deviceready', onDeviceReady, false);
-  } else {
-    onDeviceReady();
-  }
+  $(document).ready(function(){
+    $('#btn_showfull').prop('disabled', true);
+    $('#btn_showvideo').prop('disabled', true);
+
+    // on mobile device, we must wait the 'deviceready' event fired by cordova
+    if(/(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent)) {
+      document.addEventListener('deviceready', onDeviceReady, false);
+    } else {
+      onDeviceReady();
+    }
+  });
