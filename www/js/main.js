@@ -20,18 +20,18 @@ function mainarea()
 		localStorage.setItem("runVideoPlayers",'0');
 		localStorage.setItem("counterAds",'0');
 		//$('#searchModal').show();
-		//cordova.getAppVersion.getPackageName(function(pkgname){
-		appSetting('com.timesvideo.gaanesuneansune');
-		//});
+		cordova.getAppVersion.getPackageName(function(pkgname){
+		appSetting(pkgname);
+		});
 		$(".loader").delay(3000).hide('slide',500,function()
 		{
-     //  cordova.getAppVersion.getPackageName(function(pkgname){
+       cordova.getAppVersion.getPackageName(function(pkgname){
 		var response=JSON.parse((localStorage.getItem("item")));
-		sliderSettingWithData('com.timesvideo.gaanesuneansune');
+		sliderSettingWithData(pkgname);
 
-		getAllPost(response[0], 'com.timesvideo.gaanesuneansune');
-		featuredAppModel('com.timesvideo.gaanesuneansune');
-		//});
+		getAllPost(response[0], pkgname);
+		featuredAppModel(pkgname);
+		});
 		});
 		setTimeout(
 			function() {
