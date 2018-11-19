@@ -13,9 +13,6 @@
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.example.hello"
     },
-    "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
-    },
     "cordova-plugin-customconfigparameters": {
       "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
     },
