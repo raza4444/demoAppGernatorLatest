@@ -1,5 +1,4 @@
 var admobid = {};
-var admobid = {};
   if( /(android)/i.test(navigator.userAgent) ) {
     admobid = { // for Android
       banner: 'ca-app-pub-2607313420010336/7643001475',
