@@ -9,14 +9,6 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-statusbar.statusbar",
-    "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
-    "pluginId": "cordova-plugin-statusbar",
-    "clobbers": [
-      "window.StatusBar"
-    ]
-  },
-  {
     "id": "cordova-plugin-customconfigparameters.CustomConfigParameters",
     "file": "plugins/cordova-plugin-customconfigparameters/www/customconfigparameters.js",
     "pluginId": "cordova-plugin-customconfigparameters",
@@ -78,6 +70,14 @@ module.exports = [
     "clobbers": [
       "imagedownloader"
     ]
+  },
+  {
+    "id": "cordova-plugin-statusbar.statusbar",
+    "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+    "pluginId": "cordova-plugin-statusbar",
+    "clobbers": [
+      "window.StatusBar"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -87,14 +87,14 @@ module.exports.metadata =
   "cordova-plugin-extension": "1.5.4",
   "cordova-plugin-admobpro": "2.35.3",
   "cordova-plugin-whitelist": "1.3.3",
-  "cordova-plugin-statusbar": "2.4.3-dev",
   "cordova-plugin-customconfigparameters": "3.0.0",
   "cordova-plugin-network-information": "2.0.1",
   "cordova-plugin-app-version": "0.1.9",
   "es6-promise-plugin": "4.2.2",
   "cordova-plugin-screen-orientation": "3.0.1",
   "com.bunkerpalace.cordova.YoutubeVideoPlayer": "1.0.5",
-  "com.santinowu.cordova.imagedownloader": "1.0.3"
+  "com.santinowu.cordova.imagedownloader": "1.0.3",
+  "cordova-plugin-statusbar": "2.4.2"
 };
 // BOTTOM OF METADATA
 });

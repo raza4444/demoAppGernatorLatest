@@ -89,6 +89,10 @@
             {
               "xml": "<feature name=\"ImageDownloader\"><param name=\"android-package\" value=\"com.santinowu.cordova.imagedownloader.ImageDownloader\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" value=\"org.apache.cordova.statusbar.StatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
             }
           ],
           "widget": [
@@ -135,6 +139,9 @@
       "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
     },
     "com.santinowu.cordova.imagedownloader": {
+      "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
+    },
+    "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "com.timesvideo.gaanesuneansune"
     }
   },
@@ -210,6 +217,14 @@
       "clobbers": [
         "imagedownloader"
       ]
+    },
+    {
+      "id": "cordova-plugin-statusbar.statusbar",
+      "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+      "pluginId": "cordova-plugin-statusbar",
+      "clobbers": [
+        "window.StatusBar"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -223,6 +238,7 @@
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-screen-orientation": "3.0.1",
     "com.bunkerpalace.cordova.YoutubeVideoPlayer": "1.0.5",
-    "com.santinowu.cordova.imagedownloader": "1.0.3"
+    "com.santinowu.cordova.imagedownloader": "1.0.3",
+    "cordova-plugin-statusbar": "2.4.2"
   }
 }

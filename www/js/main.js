@@ -38,7 +38,7 @@ function mainarea()
 				StatusBar.show();
 				$('.my_lazy_loader').removeClass( "hide" );
 			}, 3500);
-	     setInterval(function(){ ajaxContinuesly();  }, 6000);
+	     setInterval(function(){ /*ajaxContinuesly(); */ }, 6000);
 }
 }
 

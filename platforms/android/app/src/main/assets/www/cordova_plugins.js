@@ -70,6 +70,14 @@ module.exports = [
     "clobbers": [
       "imagedownloader"
     ]
+  },
+  {
+    "id": "cordova-plugin-statusbar.statusbar",
+    "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+    "pluginId": "cordova-plugin-statusbar",
+    "clobbers": [
+      "window.StatusBar"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -85,7 +93,8 @@ module.exports.metadata =
   "es6-promise-plugin": "4.2.2",
   "cordova-plugin-screen-orientation": "3.0.1",
   "com.bunkerpalace.cordova.YoutubeVideoPlayer": "1.0.5",
-  "com.santinowu.cordova.imagedownloader": "1.0.3"
+  "com.santinowu.cordova.imagedownloader": "1.0.3",
+  "cordova-plugin-statusbar": "2.4.2"
 };
 // BOTTOM OF METADATA
 });
